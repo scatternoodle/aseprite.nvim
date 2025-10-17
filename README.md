@@ -3,7 +3,7 @@ Get Lua API types and LSP support for developing Aseprite plugins in Neovim
 
 This plugin wraps a [fork](https://github.com/scatternoodle/aseprite-lualib) of [RampantDespair's excellent definitions library](https://github.com/RampantDespair/Aseprite-Library). It dynamically detects when an Aseprite plugin project is opened, and inserts Aseprite API types and globals into the Lua language server (lua_ls) workspace.
 
-nvim-aseprite is currently experimental and should be considered unstable until it reaches a 1.0 release.
+**_nvim-aseprite is currently experimental and should be considered unstable until it reaches a 1.0 release._**
 
 ## Acknowledgements
 * RampantDespair - [Aseprite-Library](https://github.com/RampantDespair/Aseprite-Library)
