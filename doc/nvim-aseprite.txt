@@ -1,0 +1,11 @@
+================================================================================
+INTRODUCTION *nvim-aseprite*
+nvim-aseprite dynamically detects when an Aseprite plugin project is opened,
+and inserts Aseprite API Lua type definitions into the lua_ls workspace.
+
+Please ensure there is a file named '.aseprite' within your project, preferrably
+in the root directory. This file should be empty and any content inside will be
+ignored. The plugin will detect the presence of this file to identify the 
+workspace as an Aseprite project.
+
+ vim:tw=78:ts=8:ft=help:norl:
