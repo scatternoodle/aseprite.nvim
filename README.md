@@ -44,6 +44,8 @@ require("nvim-aseprite").setup()
 
 ## Usage
 
+In-editor help: `:help nvim-aseprite`
+
 The API libary is only inserted into the workspace once an Aseprite plugin is detected. There is no official Aseprite standard for this (such as a uniquely-named RC file or directory structure) so we have devised our own for this plugin. Simply place a file named `.aseprite` wtihin your project directory. This can be at the root of the project, but does not need to be. The file can be empty, and indeed, any content inside will be ignored.
 
 <img width="331" height="162" alt="image" src="https://github.com/user-attachments/assets/76f0e108-8b61-427b-9c21-b03d1e39d7e5" />
