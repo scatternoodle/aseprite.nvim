@@ -80,9 +80,9 @@ nvim_aseprite.is_aseprite_project = function(dir)
 end
 
 nvim_aseprite.setup = function()
-	-- if nvim_aseprite.is_aseprite_project(vim.fn.getcwd()) then
-	-- 	extend_lsp()
-	-- end
+	if not nvim_aseprite.is_aseprite_project(vim.fn.getcwd()) then
+		return
+	end
 
 	local group = api.nvim_create_augroup("nvim-aseprite", { clear = true })
 	api.nvim_create_autocmd("LspAttach", {
