@@ -14,15 +14,13 @@ nvim-aseprite is currently experimental and should be considered unstable until 
 
 ## Installation
 
-Simply install via the method of your choice, making sure to call the setup function - the plugin won't work unless you do. There are currently no configuration options.
+Simply install via the method of your choice, making sure that setup is called - the plugin won't work unless you do. For Lazy, defining the opts table is enough to ensure this, but other methods or manual installation may require you to call it explicitly.
 
 Lazy:
 ```Lua
 {
 	"scatternoodle/nvim-aseprite",
-	config = function()
-		require("nvim-aseprite").setup()
-	end,
+    opts = {}
 }
 ```
 
@@ -34,12 +32,6 @@ use({
     require("nvim-aseprite").setup()
   end,
 })
-```
-
-vim-plug:
-```Lua
-Plug 'scatternoodle/nvim-aseprite'
-require("nvim-aseprite").setup()
 ```
 
 ## Usage
