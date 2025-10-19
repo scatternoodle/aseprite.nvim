@@ -1,5 +1,5 @@
 ================================================================================
-INTRODUCTION                                                     *nvim-aseprite*
+INTRODUCTION                                                          *aseprite*
 
 Tools and commands for working with Aseprite plugin projects in Neovim.
 
@@ -7,7 +7,7 @@ nvim-aseprite dynamically detects when an Aseprite plugin project is opened,
 and inserts Aseprite API Lua type definitions into the lua_ls workspace.
 
 ================================================================================
-ASEPRITE PROJECT DETECTION                     *nvim-aseprite-project-detection*
+ASEPRITE PROJECT DETECTION                          *aseprite-project-detection*
 
 This plugin only loads if an Aseprite plugin project is detected.
 
@@ -17,7 +17,7 @@ ignored. The plugin will detect the presence of this file to identify the
 workspace as an Aseprite project.
 
 ================================================================================
-SETUP                                                      *nvim-aseprite-setup*
+SETUP                                                           *aseprite-setup*
 
 It is recommended to use a plugin manager, such as `lazy.nvim`. Either way,
 ensure that plugin load and setup function run early - this is critical for
@@ -34,10 +34,27 @@ Example setup using `lazy.nvim`
 		{ "<leader>ar", "<cmd>AsepriteRestart<cr>", desc = "Restart Aseprite" },
 		{ "<leader>as", "<cmd>AsepriteStop<cr>", desc = "Stop Aseprite" },
 	},
+
+aseprite.setup({opts}) ~
+Optionally provide user options overrides. You can ommit this argument and the
+defaults will be used:
+>lua
+{
+	path_aseprite_binary = "aseprite", -- custom aseprite install path
+}
 <
 
+- `path_aseprite_binary`: path to your Aseprite binary. If Aseprite is in your
+  `PATH`, this can be ommitted unless you have a specific custom path you wish
+  to use (e.g. if multiple versions are installed and you want a specific
+  one).
+
+  Unix-based users can use variable names such as `"$HOME", which will be
+  expanded. Windows users are recommended to provide an absolute path.
+
+
 ================================================================================
-COMMANDS                                                *nvim-aseprite-commands*
+COMMANDS                                                     *aseprite-commands*
 
 All nvim-aseprite commands begin with ":Aseprite".
 

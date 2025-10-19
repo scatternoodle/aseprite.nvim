@@ -10,11 +10,13 @@ Tools and commands for working with Aseprite plugin projects in Neovim.
 * RampantDespair - [Aseprite-Library](https://github.com/RampantDespair/Aseprite-Library)
 * The Aseprite Team - [Aseprite API](https://www.aseprite.org/api)
 
-## Dependencies
-* The [Lua Language Server](https://luals.github.io/) (lua_ls) must be installed and enabled for this plugin to function. This is [available natively](https://neovim.io/doc/user/lsp.html#lsp-quickstart) in Neovim via lspconfig.
+## Setup
 
-## Installation
+### Dependencies 
+* [Aseprite](https://www.aseprite.org/)
+* [Lua Language Server](https://luals.github.io/) (lua_ls) must be installed and enabled for this plugin to function. This is [available natively](https://neovim.io/doc/user/lsp.html#lsp-quickstart) in Neovim via lspconfig.
 
+### Installation
 It is recommended to use a plugin manager, such as `lazy.nvim`. Either way,
 ensure that plugin load and setup function run early - this is critical for
 parts of the plugin such as LSP support to function correctly. For lazy.nvim
@@ -32,31 +34,23 @@ Example setup using `lazy.nvim`
 	},
 ```
 
+### Configuration
+
+Default config options:
+```Lua
+aseprite.options_defaults = {
+	path_aseprite_binary = "aseprite", -- custom aseprite install path
+}
+```
+
 ## Usage
 
-Get documentation inside Neovim with `:help nvim-aseprite`
+Get full documentation including commands inside Neovim with `:help aseprite`. Read on for a note about Aseprite project detection.
 
 ### Aseprite project detection
 The plugin only loads if an Aseprite plugin is detected. There is no official Aseprite standard for this (such as a uniquely-named RC file or directory structure) so we have devised our own for this plugin. Simply place a file named `.aseprite` wtihin your project directory. This can be at the root of the project, but does not need to be. The file can be empty, and indeed, any content inside will be ignored.
 
 <img width="331" height="162" alt="image" src="https://github.com/user-attachments/assets/76f0e108-8b61-427b-9c21-b03d1e39d7e5" />
-
-### Commands
-
-* `:AsepriteRun`
-  Start Aseprite from Neovim, with no arguments. The Aseprite process is tied
-  to the neovim session. Only one Aseprite process can be attached at a time.
-  The current job ID is stored in `nvim-aseprite.job.id`.
-
-* `:AsepriteStop`
-  Stop the current Aseprite process (stored under `nvim-aseprite.job.id`) if
-  running.
-
-* `:AsepriteRestart`
-  Stop the current Aseprite process if running, and start a new one. The
-  pre-existing process ID is not retained. `:AsepriteRestart` can be used
-  regardless of whether there is an existing Aseprite process; a new one will
-  be started and override `nvim-aseprite.job.id` either way.
 
 ## Copyright Notice
 
