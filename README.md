@@ -36,7 +36,7 @@ Example setup using `lazy.nvim`
 
 ### Configuration
 
-Default config options:
+Default config options below, please use `:help aseprite` inside Neovim for more detailed documentation about each option.
 ```Lua
 aseprite.options_defaults = {
 	path_aseprite_binary = "aseprite", -- custom aseprite install path
