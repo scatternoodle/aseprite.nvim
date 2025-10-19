@@ -1,10 +1,10 @@
-# nvim-aseprite
+# aseprite.nvim
 Tools and commands for working with Aseprite plugin projects in Neovim.
 
 * Launch Aseprite from inside Neovim
 * Get LSP type support for Aseprite's API, using a [fork](https://github.com/scatternoodle/aseprite-lualib) of [RampantDespair's excellent definitions library](https://github.com/RampantDespair/Aseprite-Library).
 
-**_nvim-aseprite is currently experimental and should be considered unstable until it reaches a 1.0 release._**
+**_nvim.aseprite is currently experimental and should be considered unstable._**
 
 ## Acknowledgements
 * RampantDespair - [Aseprite-Library](https://github.com/RampantDespair/Aseprite-Library)
@@ -24,7 +24,7 @@ users, this means either setting `lazy = false` or `event = "VeryLazy"`.
 
 Example setup using `lazy.nvim`
 ```lua
-	"scatternoodle/nvim-aseprite",
+	"scatternoodle/aseprite.nvim",
 	event = "VeryLazy",
 	opts = {},
 	keys = {
