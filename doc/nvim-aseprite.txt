@@ -1,11 +1,59 @@
 ================================================================================
-INTRODUCTION *nvim-aseprite*
+INTRODUCTION                                                     *nvim-aseprite*
+
+Tools and commands for working with Aseprite plugin projects in Neovim.
+
 nvim-aseprite dynamically detects when an Aseprite plugin project is opened,
 and inserts Aseprite API Lua type definitions into the lua_ls workspace.
+
+================================================================================
+ASEPRITE PROJECT DETECTION                     *nvim-aseprite-project-detection*
+
+This plugin only loads if an Aseprite plugin project is detected.
 
 Please ensure there is a file named '.aseprite' within your project, preferrably
 in the root directory. This file should be empty and any content inside will be
 ignored. The plugin will detect the presence of this file to identify the 
 workspace as an Aseprite project.
+
+================================================================================
+SETUP                                                      *nvim-aseprite-setup*
+
+It is recommended to use a plugin manager, such as `lazy.nvim`. Either way,
+ensure that plugin load and setup function run early - this is critical for
+parts of the plugin such as LSP support to function correctly. For lazy.nvim
+users, this means either setting `lazy = false` or `event = "VeryLazy"`.
+
+Example setup using `lazy.nvim`
+>lua
+	"scatternoodle/nvim-aseprite",
+	event = "VeryLazy",
+	opts = {},
+	keys = {
+		{ "<leader>a", desc = "Aseprite" },
+		{ "<leader>ar", "<cmd>AsepriteRestart<cr>", desc = "Restart Aseprite" },
+		{ "<leader>as", "<cmd>AsepriteStop<cr>", desc = "Stop Aseprite" },
+	},
+<
+
+================================================================================
+COMMANDS                                                *nvim-aseprite-commands*
+
+All nvim-aseprite commands begin with ":Aseprite".
+
+:AsepriteRun ~
+  Start Aseprite from Neovim, with no arguments. The Aseprite process is tied
+  to the neovim session. Only one Aseprite process can be attached at a time.
+  The current job ID is stored in `nvim-aseprite.job.id`.
+
+:AsepriteStop ~
+  Stop the current Aseprite process (stored under `nvim-aseprite.job.id`) if
+  running.
+
+:AsepriteRestart ~
+  Stop the current Aseprite process if running, and start a new one. The
+  pre-existing process ID is not retained. `:AsepriteRestart` can be used
+  regardless of whether there is an existing Aseprite process; a new one will
+  be started and override `nvim-aseprite.job.id` either way.
 
  vim:tw=78:ts=8:ft=help:norl:

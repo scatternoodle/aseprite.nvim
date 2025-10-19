@@ -21,6 +21,13 @@ local nvim_aseprite = {}
 local uv = vim.uv
 local api = vim.api
 
+---@class job
+---@field id integer
+
+local function get_aseprite_cmd()
+	return "aseprite"
+end
+
 local function extend_lsp()
 	if not vim.lsp.config.lua_ls then
 		vim.notify("nvim_aseprite: extend_lsp: could not find lua_ls config", vim.log.levels.ERROR)
@@ -79,10 +86,47 @@ nvim_aseprite.is_aseprite_project = function(dir)
 	return false
 end
 
+---Starts an Aseprite process tied to the current neovim session. Only attached
+---Aseprite job may be active at any given time.
+nvim_aseprite.run = function()
+	if nvim_aseprite.job and nvim_aseprite.job.id then
+		vim.notify("attempt to run job when already running with job.id " .. nvim_aseprite.job.id, vim.log.levels.ERROR)
+		return
+	end
+	nvim_aseprite.job = {}
+	local cmd = get_aseprite_cmd()
+	nvim_aseprite.job.id = vim.fn.jobstart(cmd, {
+		on_exit = function()
+			nvim_aseprite.job = {}
+		end,
+	})
+end
+
+---Stops the current Aseprite process, if running.
+nvim_aseprite.stop = function()
+	if not nvim_aseprite.job or not nvim_aseprite.job.id then
+		vim.notify("attempt to stop job when no process running", vim.log.levels.ERROR)
+		return
+	end
+	local res = vim.fn.jobstop(nvim_aseprite.job.id)
+	nvim_aseprite.job = {}
+end
+
+---Restarts the current Aseprite process, or simply starts a new one if none are
+---running currently. Note, this will not retain the existing process ID.
+nvim_aseprite.restart = function()
+	if nvim_aseprite.job and nvim_aseprite.job.id then
+		nvim_aseprite.stop()
+	end
+	nvim_aseprite.run()
+end
+
 nvim_aseprite.setup = function()
 	if not nvim_aseprite.is_aseprite_project(vim.fn.getcwd()) then
 		return
 	end
+
+	nvim_aseprite.job = {}
 
 	local group = api.nvim_create_augroup("nvim-aseprite", { clear = true })
 	api.nvim_create_autocmd("LspAttach", {
