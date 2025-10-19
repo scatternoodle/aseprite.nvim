@@ -1,8 +1,8 @@
 # nvim-aseprite
 Tools and commands for working with Aseprite plugin projects in Neovim.
 
-* Commands for launching Aseprite and testing plugins
-* This plugin wraps a [fork](https://github.com/scatternoodle/aseprite-lualib) of [RampantDespair's excellent definitions library](https://github.com/RampantDespair/Aseprite-Library). It dynamically detects when an Aseprite plugin project is opened, and inserts Aseprite API types and globals into the Lua language server (lua_ls) workspace.
+* Launch Aseprite from inside Neovim
+* Get LSP type support for Aseprite's API, using a [fork](https://github.com/scatternoodle/aseprite-lualib) of [RampantDespair's excellent definitions library](https://github.com/RampantDespair/Aseprite-Library).
 
 **_nvim-aseprite is currently experimental and should be considered unstable until it reaches a 1.0 release._**
 
