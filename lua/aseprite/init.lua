@@ -23,10 +23,13 @@ local uv = vim.uv
 local api = vim.api
 
 ---@class aseprite
+---@field loaded boolean
 ---@field options options
 ---@field options_defaults options
 ---@field job job
-local aseprite = {}
+local aseprite = {
+	loaded = false,
+}
 
 ---@class options
 ---@field path_aseprite_binary? string: Path to your Aseprite binary
@@ -99,9 +102,9 @@ end
 
 ---Starts an Aseprite process tied to the current neovim session. Only attached
 ---Aseprite job may be active at any given time.
-aseprite.run = function()
+aseprite.cmd_run = function()
 	if aseprite.job and aseprite.job.id then
-		vim.notify("attempt to run job when already running with job.id " .. aseprite.job.id, vim.log.levels.ERROR)
+		vim.notify("Aseprite already running. Use :AsepriteStop or :AsepriteRestart instead.", vim.log.levels.INFO)
 		return
 	end
 	aseprite.job = {}
@@ -114,9 +117,9 @@ aseprite.run = function()
 end
 
 ---Stops the current Aseprite process, if running.
-aseprite.stop = function()
+aseprite.cmd_stop = function()
 	if not aseprite.job or not aseprite.job.id then
-		vim.notify("attempt to stop job when no process running", vim.log.levels.ERROR)
+		vim.notify("No aseprite process running. Use :AsepriteRun or :AsepriteRestart instead.", vim.log.levels.INFO)
 		return
 	end
 	local res = vim.fn.jobstop(aseprite.job.id)
@@ -125,11 +128,11 @@ end
 
 ---Restarts the current Aseprite process, or simply starts a new one if none are
 ---running currently. Note, this will not retain the existing process ID.
-aseprite.restart = function()
+aseprite.cmd_restart = function()
 	if aseprite.job and aseprite.job.id then
-		aseprite.stop()
+		aseprite.cmd_stop()
 	end
-	aseprite.run()
+	aseprite.cmd_run()
 end
 
 ---@param opts? options
@@ -153,6 +156,28 @@ aseprite.setup = function(opts)
 			extend_lsp()
 		end,
 	})
+
+	api.nvim_create_user_command("AsepriteRun", function(_)
+		aseprite.cmd_run()
+	end, {
+		nargs = 0,
+		desc = "Launch an Aseprite process tied to this session",
+	})
+	api.nvim_create_user_command("AsepriteStop", function(_)
+		aseprite.cmd_stop()
+	end, {
+		nargs = 0,
+		desc = "Stop the current Aseprite process",
+	})
+	api.nvim_create_user_command("AsepriteRestart", function(_)
+		aseprite.cmd_restart()
+	end, {
+		nargs = 0,
+		desc = "Restart Aseprite, or simply start a new process if not currently running",
+	})
+
+	aseprite.loaded = true
+	print("loaded")
 end
 
 return aseprite
